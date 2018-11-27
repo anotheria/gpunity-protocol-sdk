@@ -1,5 +1,7 @@
 package net.miningoptimizer.protocol.v2;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -27,7 +29,7 @@ public class ReplyObject {
 	 * Random long to ensure different payload.
 	 */
 	@XmlElement
-	private Long random;
+	private long random = randomProvider.nextLong();
 	/**
 	 * Optional message in case call failed (exception message).
 	 */
@@ -45,6 +47,11 @@ public class ReplyObject {
 	 */
 	@XmlElement
 	private String hash;
+
+	/**
+	 * Random to create new random long values.
+	 */
+	private static Random randomProvider = new Random(System.nanoTime());
 
 	/**
 	 * Creates a new empty result object.
@@ -133,7 +140,7 @@ public class ReplyObject {
 		return results;
 	}
 
-	public Long getRandom() {
+	public long getRandom() {
 		return random;
 	}
 
@@ -141,13 +148,11 @@ public class ReplyObject {
 		return hash;
 	}
 
-	public void sign(String secret){
-		random = new Random().nextLong();
+	public ReplyObject sign(String secret){
 		String message = this.message == null ? "" : this.message;
-		String pass = message + random + results + success;
-		//SHA256PasswordEncryptionAlgorithm encryptionAlgorithm = new SHA256PasswordEncryptionAlgorithm();
-		//encryptionAlgorithm.customize(secret);
-		//hash = encryptionAlgorithm.encryptPassword(pass);
+		String pass = message + random + results + success + secret;
+		hash = DigestUtils.sha256Hex(pass);
+		return this;
 	}
 
 }

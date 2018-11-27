@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
  * @author lrosenberg
  * @since 27.11.18 23:51
  */
-public class TestSigning {
+public class SigningTest {
 
 	@Before public void setSecret(){
 		SecretThreadLocal.getSecretThreadLocal().setSecret("mysecret");

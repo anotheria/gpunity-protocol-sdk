@@ -14,7 +14,7 @@ import java.util.Random;
  * with requested information.
  *
  * @author lrosenberg
- * @since 13.02.13 15:26
+ * @since 28.11.2018
  */
 @XmlRootElement(name="reply")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -118,6 +118,41 @@ public class ReplyObject {
 		return ret;
 	}
 
+	/**
+	 * Same as success(name, result), but instantly signs the reply.
+	 * @param name
+	 * @param result
+	 * @return
+	 */
+	public static ReplyObject successAndSign(String name, Object result){
+		return success(name, result).sign();
+	}
+	/**
+	 * Same as success(), but instantly signs the reply.
+	 * @return
+	 */
+	public static ReplyObject successAndSign(){
+		return ReplyObject.success().sign();
+	}
+	/**
+	 * Same as error(message), but instantly signs the reply.
+	 * @param message errormessage.
+	 * @return signed and ready to use ReplyObject.
+	 */
+	public static ReplyObject errorAndSign(String message){
+		return error(message).sign();
+	}
+
+	/**
+	 * Same as error(throwable), but instantly signs the reply.
+	 * @param throwable caught throwable.
+	 * @return
+	 */
+	public static ReplyObject errorAndSign(Throwable throwable){
+		return error(throwable).sign();
+	}
+
+
 	@Override public String toString(){
 		StringBuilder ret = new StringBuilder("ReplyObject ");
 		ret.append("Success: ").append(success);
@@ -155,4 +190,26 @@ public class ReplyObject {
 		return this;
 	}
 
+	public ReplyObject sign(){
+		return sign(SecretThreadLocal.getSecretThreadLocal().getSecret());
+	}
+
+	public boolean checkSignature(String secret){
+		String transmittedHash = hash;
+
+		String message = this.message == null ? "" : this.message;
+		String pass = message + random + results + success + secret;
+		hash = DigestUtils.sha256Hex(pass);
+
+		boolean result = hash != null && hash.equals(transmittedHash);
+
+		//set back original hash just in case someone wants to check this object second time (it would then pass).
+		hash = transmittedHash;
+
+		return result;
+	}
+
+	public boolean checkSignature(){
+		return checkSignature(SecretThreadLocal.getSecretThreadLocal().getSecret());
+	}
 }

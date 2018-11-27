@@ -23,11 +23,6 @@ public class ReplyObject {
 	private boolean success;
 
 	/**
-	 * Random long to ensure different payload.
-	 */
-//	@XmlElement
-//	private Long random;
-	/**
 	 * Optional message in case call failed (exception message).
 	 */
 	@XmlElement(required = false,nillable = false)
@@ -39,11 +34,6 @@ public class ReplyObject {
 	@XmlElement
 	private HashMap<String, Object> results = new HashMap<>();
 
-	/**
-	 * Object hash.
-	 */
-//	@XmlElement
-//	private String hash;
 
 	/**
 	 * Creates a new empty result object.
@@ -132,21 +122,5 @@ public class ReplyObject {
 		return results;
 	}
 
-//	public Long getRandom() {
-//		return random;
-//	}
-
-//	public String getHash() {
-//		return hash;
-//	}
-
-//	public void sign(String secret){
-//		random = new Random().nextLong();
-//		String message = this.message == null ? "" : this.message;
-//		String pass = message + random + results + success;
-//		SHA256PasswordEncryptionAlgorithm encryptionAlgorithm = new SHA256PasswordEncryptionAlgorithm();
-//		encryptionAlgorithm.customize(secret);
-//		hash = encryptionAlgorithm.encryptPassword(pass);
-//	}
 
 }

@@ -1,13 +1,16 @@
 package net.miningoptimizer.protocol.v2;
 
 /**
- * Threadlocal container for secret. This is helpful to allow convinience methods in ReplyObject.
+ * Threadlocal container for secret. This is helpful to allow convenience methods in ReplyObject.
  *
  * @author lrosenberg
  * @since 27.11.18 23:45
  */
 public class SecretThreadLocal {
 
+	/**
+	 * Secret for signing.
+	 */
 	private String secret;
 
 	public String getSecret() {

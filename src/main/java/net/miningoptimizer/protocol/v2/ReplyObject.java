@@ -184,8 +184,8 @@ public class ReplyObject {
 	}
 
 	public ReplyObject sign(String secret){
-		String message = this.message == null ? "" : this.message;
-		String pass = message + random + results + success + secret;
+		String pass = (message == null ? "" : message)
+				+ random + results + success + secret;
 		hash = DigestUtils.sha256Hex(pass);
 		return this;
 	}
@@ -197,8 +197,8 @@ public class ReplyObject {
 	public boolean checkSignature(String secret){
 		String transmittedHash = hash;
 
-		String message = this.message == null ? "" : this.message;
-		String pass = message + random + results + success + secret;
+		String pass = (message == null ? "" : message)
+				+ random + results + success + secret;
 		hash = DigestUtils.sha256Hex(pass);
 
 		boolean result = hash != null && hash.equals(transmittedHash);

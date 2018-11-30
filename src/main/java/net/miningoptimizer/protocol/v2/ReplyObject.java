@@ -183,6 +183,26 @@ public class ReplyObject {
 		return hash;
 	}
 
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
+
+	public void setRandom(long random) {
+		this.random = random;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public void setResults(HashMap<String, Object> results) {
+		this.results = results;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
+
 	public ReplyObject sign(String secret){
 		String pass = (message == null ? "" : message)
 				+ random + results + success + secret;

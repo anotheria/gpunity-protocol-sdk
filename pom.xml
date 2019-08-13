@@ -181,15 +181,15 @@
 	<distributionManagement>
 		<!-- use the following if you're not using a snapshot version. -->
 		<repository>
-			<id>mining-release</id>
-			<name>MiningOptimizer Release Repository</name>
-			<url>http://repository.anotheria.net/content/repositories/miningoptimizer-releases</url>
+			<id>gpunity-release</id>
+			<name>MO.Project Release Repository</name>
+			<url>http://repository.anotheria.net/content/repositories/gpunity-releases</url>
 		</repository>
 		<!-- use the following if you ARE using a snapshot version. -->
 		<snapshotRepository>
-			<id>mining-snapshot</id>
-			<name>MiningOptimizer Snapshot Repository</name>
-			<url>http://repository.anotheria.net/content/repositories/miningoptimizer-snapshots</url>
+			<id>gpunity-snapshot</id>
+			<name>MO.Project Snapshot Repository</name>
+			<url>http://repository.anotheria.net/content/repositories/gpunity-snapshots</url>
 			<uniqueVersion>true</uniqueVersion>
 		</snapshotRepository>
 	</distributionManagement>
